@@ -1,7 +1,7 @@
 Cranberry
 ===============================
 
-version number: 0.0.1
+version number: 0.0.3
 
 author: Daniel Schwabacher
 
@@ -14,7 +14,12 @@ The longer one: Cranberry is a complete rewrite of a former project of mine know
 Installation
 --------------------
 
-sudo pip install cranberry
+Cranberry is pip-installable 
+(the tar distros are here: https://pypi.python.org/pypi/cranberry/0.0.3)
+
+To install it, run: 
+```sudo pip install cranberry```
+
 
 The cranberry user guide/workflow:
 -------------
@@ -27,7 +32,7 @@ The cranberry user guide/workflow:
 
 Example:
 -------
-First we'll run cranberry with the default settings (no flags): 
+First, we'll run cranberry with the default settings (no flags): 
 ```bash
 cranberry
 ```
@@ -52,7 +57,7 @@ TBD
 
 A few notes
 ----------
-This is a very early version of cranberry (v0.0.1). As such, you can expect significant changes to it in the future (for example, I plan to remove the defaults before the next release to simplify things). There are also probably lots of bugs, I haven't even written tests yet. Hopefully, these docs are enough to get you started using cranberry.
+This is a very early version of cranberry (v0.0.3). As such, you can expect significant changes to it in the future (for example, I plan to remove the defaults before the next release to simplify things). There are also probably lots of bugs, I haven't even written tests yet. Hopefully, these docs are enough to get you started using cranberry.
 
 A final disclaimer
 -----------
