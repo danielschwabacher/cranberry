@@ -39,3 +39,10 @@ docs/_build
 
 # Cookiecutter
 output/
+
+__pycache__
+pyvenv.cfg
+share/
+man/
+etc/
+pip-self*
