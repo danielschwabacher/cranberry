@@ -2,7 +2,7 @@ import argparse
 import sys
 from cranberry import linter
 from cranberry import crawler
-from cranberry import youtubeparser
+from cranberry import urlcreator
 from cranberry import uploader
 from cranberry import sensor
 import os
@@ -15,7 +15,7 @@ class Cranberry():
 	also be thought of as runners. Cranberry objects delegate the bulk of their
 	work to other modules (filesystem, parser, uploader, etc.) to do the associative task.
 	There should not be more than one of these objects in any given program using Cranberry. """
-	def __init__(self, dl_dir, songs_loc, verbose, quiet):
+	def __init__(self, dl_dir, songs_loc, verbose, quiet, auto_append):
 		self.dl_dir = dl_dir
 		self.songs_loc = songs_loc
 		self.verbose = verbose
@@ -24,6 +24,7 @@ class Cranberry():
 			logging.debug("You are in debugging mode.")
 		self.quiet = quiet
 		self.sensor = sensor
+		self.auto_append = auto_append
 
 	def print_args(self):
 		print("Download dir: ", self.dl_dir)
@@ -34,8 +35,15 @@ class Cranberry():
 		filesystem_crawler = crawler.Crawler(self.dl_dir, self.songs_loc)
 		filesystem_crawler.operations_runner(self.dl_dir, self.songs_loc)
 		# ~~~~~~~~~~
-		song_file_parser = linter.Linter(self.songs_loc)
-		final_songs_list = song_file_parser.create_final_list(self.songs_loc)
+		if (self.auto_append == True):
+			song_file_parser = linter.Linter(self.songs_loc, True)
+			final_songs_list = song_file_parser.create_final_list(self.songs_loc)
+		else:
+			song_file_parser = linter.Linter(self.songs_loc, False)
+			final_songs_list = song_file_parser.create_final_list(self.songs_loc)
+		# ~~~~~~~~~~
+		url_transformer = urlcreator.URL_Creator(final_songs_list)
+		url_list = url_transformer.create_urls()
 		# ~~~~~~~~~~
 		main_uploader = uploader.Uploader(url_list, self.dl_dir, self.quiet)
 		main_uploader.process_all_urls()

@@ -17,11 +17,12 @@ def main(args=None):
 	parser.add_argument('-s',"--source-file", default=SONGS_LOCATION, help='Specify plaintext that contains names of songs to download. Defaults to ~/songList.txt')
 	parser.add_argument('-v', "--verbose", action="store_true", default=False, help='Enable verbose output, useful for debugging/development.')
 	parser.add_argument('-q', "--quiet", action="store_true", default=False, help="Run in quiet mode, silences youtube-dl progress information.")
+	parser.add_argument('-a', "--append-audio", action="store_true", default=False, help="Auto append audio to songs in song file, helps ensure the most accurate song match is found on Youtube.")
 	parser.add_argument('-x', "--sensor", default=DEFAULT_SENSOR, help="Advanced: specify a custom sensor to use during the parsing phase. Not yet implemented, option ignored.")
 	args = parser.parse_args()
 	args_dict = vars(args)
 
-	cranberry_main = cranberry.Cranberry(args_dict['output_directory'], args_dict['source_file'], args_dict['verbose'], args_dict['quiet'])
+	cranberry_main = cranberry.Cranberry(args_dict['output_directory'], args_dict['source_file'], args_dict['verbose'], args_dict['quiet'], args_dict['append_audio'])
 	cranberry_main.run()
 
 if __name__ == "__main__":
