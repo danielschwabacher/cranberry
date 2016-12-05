@@ -10,16 +10,19 @@ class Linter():
 	def __init__(self, source_file, append):
 		self.source_file = source_file
 		self.append = append
-		
+
 	# return a python list data structure containing a list of song names
 	def create_songs_list(self, src):
 		song_list= []
 		if (self.append == True):
 			audio_append = True
+		else:
+			audio_append = False
 		with open(src, 'r') as song_file:
 			for line in song_file:
+				remove_newline = line.rstrip()
 				if (audio_append):
-					song_list.append(line + " audio")
+					song_list.append(remove_newline + " audio\n")
 				else:
 					song_list.append(line)
 		return song_list
