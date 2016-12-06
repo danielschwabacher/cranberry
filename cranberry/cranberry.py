@@ -33,7 +33,7 @@ class Cranberry():
 	def run(self):
 		print("---WELCOME TO CRANBERRY---")
 		filesystem_crawler = crawler.Crawler(self.dl_dir, self.songs_loc)
-		filesystem_crawler.operations_runner(self.dl_dir, self.songs_loc)
+		filesystem_crawler.operations_runner()
 		# ~~~~~~~~~~
 		if (self.auto_append == True):
 			song_file_parser = linter.Linter(self.songs_loc, True)
