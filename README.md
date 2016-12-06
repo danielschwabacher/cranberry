@@ -18,7 +18,7 @@ Cranberry is pip-installable
 (the tar distros are here: https://pypi.python.org/pypi/cranberry/)
 
 To install it, run:
-```sudo pip install cranberry```
+```sudo pip3 install cranberry```
 
 
 The cranberry user guide/workflow:
@@ -54,10 +54,6 @@ cranberry -h
 Contributing
 ---------
 TBD
-
-A few notes
-----------
-This is a very early version of cranberry (v0.0.3). As such, you can expect significant changes to it in the future (for example, I plan to remove the defaults before the next release to simplify things). There are also probably lots of bugs, I haven't even written tests yet. Hopefully, these docs are enough to get you started using cranberry.
 
 A final disclaimer
 -----------
