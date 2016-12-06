@@ -37,10 +37,10 @@ class Cranberry():
 		# ~~~~~~~~~~
 		if (self.auto_append == True):
 			song_file_parser = linter.Linter(self.songs_loc, True)
-			final_songs_list = song_file_parser.create_final_list(self.songs_loc)
+			final_songs_list = song_file_parser.create_final_list()
 		else:
 			song_file_parser = linter.Linter(self.songs_loc, False)
-			final_songs_list = song_file_parser.create_final_list(self.songs_loc)
+			final_songs_list = song_file_parser.create_final_list()
 		# ~~~~~~~~~~
 		url_transformer = urlcreator.URL_Creator(final_songs_list)
 		url_list = url_transformer.create_urls()

@@ -12,13 +12,13 @@ class Linter():
 		self.append = append
 
 	# return a python list data structure containing a list of song names
-	def create_songs_list(self, src):
+	def create_songs_list(self):
 		song_list= []
 		if (self.append == True):
 			audio_append = True
 		else:
 			audio_append = False
-		with open(src, 'r') as song_file:
+		with open(self.source_file, 'r') as song_file:
 			for line in song_file:
 				remove_newline = line.rstrip()
 				if (audio_append):
@@ -28,9 +28,9 @@ class Linter():
 		return song_list
 
 	# Automatically adds the '+' between words to ensure compatibility with youtube-dl
-	def add_query_compatibility(self, src):
+	def add_query_compatibility(self, spaced_list):
 		compatible_list = []
-		for line in src:
+		for line in spaced_list:
 			appendable = line.replace(" ", "+")
 			compatible_list.append(appendable)
 		return compatible_list
@@ -40,8 +40,8 @@ class Linter():
 		using_sensor = sensor.Sensor()
 		return using_sensor.default(src)
 
-	def create_final_list(self, src):
-		list_1 = self.create_songs_list(src)
-		list_2 = self.song_sense(list_1, )
+	def create_final_list(self):
+		list_1 = self.create_songs_list()
+		list_2 = self.song_sense(list_1)
 		final_list = self.add_query_compatibility(list_2)
 		return final_list
