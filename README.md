@@ -28,26 +28,26 @@ The cranberry user guide/workflow:
 
 1.) A plaintext file (.txt) which contains a list of songs that cranberry should download. The default is songsList.txt located in the user's home directory.
 
-2.) A directory which cranberry will download the songs to. The default is CranberryMusic/ again located in the user's home directory.
+2.) A directory which cranberry will download the songs to. The default is ~/CranberryMusic/
 
 Example:
 -------
 First, we'll run cranberry with the default settings (no flags):
 
-```bash cranberry```
+```cranberry```
 
 This will cause cranberry to look for the file: **~/songsList.txt**. If it is there, cranberry will download all of the songs located in **songsList.txt** to the directory: **~/CranberryMusic/**. **Note: Cranberry will automatically create the download directory if it doesn't exist.**
 
 
 Cranberry also supports song files with different names in different locations. As an example, we'll specify different song files and directories to download from and to, respectively.
 
-```bash cranberry -o ~/OtherMusicFiles/ -s ~/other_song_file.txt```
+```cranberry -o ~/OtherMusicFiles/ -s ~/other_song_file.txt```
 
 The first flag (-o) is followed by a directory that cranberry will download to. The second flag (-s) is followed by a plaintext file called other_song_file.txt that cranberry will parse songs from.
 
 The built-in cranberry help menu details all the possible flags cranberry accepts, to show it, simply run:
 
-```bash cranberry -h```
+```cranberry -h```
 
 Contributing
 ---------
