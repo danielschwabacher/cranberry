@@ -18,7 +18,7 @@ Cranberry is pip-installable
 (the tar distros are here: https://pypi.python.org/pypi/cranberry/)
 
 To install it, run:
-```sudo pip3 install cranberry```
+```pip3 install cranberry```
 
 
 The cranberry user guide/workflow:
@@ -33,24 +33,18 @@ The cranberry user guide/workflow:
 Example:
 -------
 First, we'll run cranberry with the default settings (no flags):
-```bash
-cranberry
-```
-Simple. This will cause cranberry to look for the file: **~/songsList.txt**. If it is there, cranberry will download all of the songs located in **songsList.txt** to the directory: **~/CranberryMusic/**.
+```bash cranberry```
+This will cause cranberry to look for the file: **~/songsList.txt**. If it is there, cranberry will download all of the songs located in **songsList.txt** to the directory: **~/CranberryMusic/**.
 **Note: Cranberry will automatically create the download directory if it doesn't exist.**
 
 
-Second, we'll specify different song files and directories to download from and to, respectively.
-
-```bash
-cranberry -o ~/OtherMusicFiles/ -s ~/other_song_file.txt
-```
-Cool, don't be alarmed by these flags. The first flag (-o) is followed by a directory that cranberry will download to. The second flag (-s) is followed by a plaintext file called other_song_file that cranberry will parse songs from.
+Cranberry also supports song files with different names in different locations. As an example, we'll specify different song files and directories to download from and to, respectively.
+```bash cranberry -o ~/OtherMusicFiles/ -s ~/other_song_file.txt```
+The first flag (-o) is followed by a directory that cranberry will download to. The second flag (-s) is followed by a plaintext file called other_song_file.txt that cranberry will parse songs from.
 
 The built-in cranberry help menu details all the possible flags cranberry accepts, to show it, simply run:
-```bash
-cranberry -h
-```
+```bash cranberry -h```
+
 Contributing
 ---------
 TBD
