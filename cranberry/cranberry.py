@@ -31,7 +31,7 @@ class Cranberry():
 		print("Source File: ", self.songs_loc)
 
 	def run(self):
-		print("---WELCOME TO CRANBERRY (TEST BUILD, DO NOT DISTRIBUTE)---")
+		print("---WELCOME TO CRANBERRY---")
 		filesystem_crawler = crawler.Crawler(self.dl_dir, self.songs_loc)
 		filesystem_crawler.operations_runner()
 		# ~~~~~~~~~~
