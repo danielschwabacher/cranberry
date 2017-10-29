@@ -1,4 +1,5 @@
-from urllib import request
+#from urllib import request
+import requests
 import urllib.parse
 import re
 import logging
@@ -13,8 +14,8 @@ class URL_Creator():
 		list_of_urls = []
 		for item in self.songs_list:
 			logging.debug("Getting url for song: %s", item)
-			html_content = urllib.request.urlopen("http://www.youtube.com/results?search_query=" + item)
-			search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.read().decode())
+			html_content = requests.get("http://www.youtube.com/results?search_query=" + item)
+			search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.text)
 			url_string = "http://www.youtube.com/watch?v=" + search_results[0]
 			list_of_urls.append(url_string)
 		return list_of_urls
