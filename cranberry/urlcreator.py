@@ -19,16 +19,21 @@ class URL_Creator():
 		for item in self.songs_list:
 			print("Getting url for song: ", item)
 			html_content = requests.get("http://www.youtube.com/results?search_query=" + item, headers=self.cranberry_fake_headers)
-			search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.text)
-			# This may help reduce captcha errors.
-			time.sleep(random.random() * 3)
-			if html_content.status_code == 503:
-				print("CAPTCHA Error, cranberry cannot continue. Run with -v for more information. Cranberry will now exit.")
-				logging.debug("Status code: ", html_content.status_code)
-				logging.debug("Text response: ", html_content.text)
-				logging.debug("Youtube has detected that we have requested too many resources. This usually happens when you try to download many songs in a short period of time.")
-				logging.debug("To fix this, you can manually complete the CAPTCHA on Youtube, or you can wait a bit and try using cranberry again.")
-				exit(-1)
-			url_string = "http://www.youtube.com/watch?v=" + search_results[0]
-			list_of_urls.append(url_string)
+			try:
+				search_results = re.findall(r'\/watch\?v=(.{11})', html_content.content.decode('utf-8'))	
+				logging.debug("Search results are: " + str(search_results))
+				# This may help reduce captcha errors.
+				# time.sleep(random.random() * 3)
+				if html_content.status_code == 503:
+					print("CAPTCHA Error, cranberry cannot continue. Run with -v for more information. Cranberry will now exit.")
+					logging.debug("Status code: ", html_content.status_code)
+					logging.debug("Text response: ", html_content.text)
+					logging.debug("Youtube has detected that we have requested too many resources. This usually happens when you try to download many songs in a short period of time.")
+					logging.debug("To fix this, you can manually complete the CAPTCHA on Youtube, or you can wait a bit and try using cranberry again.")
+					exit(-1)
+				url_string = "http://www.youtube.com/watch?v=" + search_result[0]
+				list_of_urls.append(url_string)
+			except Exception as e:
+				print("Unknown error, skipping: " + str(item))
+				print("Exception was: " + str(e))
 		return list_of_urls
