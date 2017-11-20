@@ -1,7 +1,7 @@
 Cranberry
 ===============================
 
-version number: 0.1.0
+version number: 1.0.0
 
 author: Daniel Schwabacher
 
