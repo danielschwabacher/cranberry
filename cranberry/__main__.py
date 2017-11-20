@@ -18,11 +18,12 @@ def main(args=None):
 	parser.add_argument('-v', "--verbose", action="store_true", default=False, help='Enable verbose output, useful for debugging/development.')
 	parser.add_argument('-q', "--quiet", action="store_true", default=False, help="Run in quiet mode, silences youtube-dl progress information.")
 	parser.add_argument('-a', "--append-audio", action="store_true", default=False, help="Auto append audio to songs in song file, helps ensure the most accurate song match is found on Youtube.")
+	parser.add_argument('-r', "--request-delay-time", type=int, default=0, help="Specify time between requests. Higher values may reduce the CAPTCHA issue error rate. Defaults to 0, no time between Youtube API request.")
+	parser.add_argument('-d', "--display-session-info", action="store_true", help="Print information about Cranberry session arguments and then exit. Does NOT run a cranberry session")
 	parser.add_argument('-x', "--sensor", default=DEFAULT_SENSOR, help="Advanced: specify a custom sensor to use during the parsing phase. Not yet implemented, option ignored.")
 	args = parser.parse_args()
 	args_dict = vars(args)
-
-	cranberry_main = cranberry.Cranberry(args_dict['output_directory'], args_dict['source_file'], args_dict['verbose'], args_dict['quiet'], args_dict['append_audio'])
+	cranberry_main = cranberry.Cranberry(args_dict['output_directory'], args_dict['source_file'], args_dict['verbose'], args_dict['quiet'], args_dict['append_audio'], args_dict['request_delay_time'], args_dict['display_session_info'])
 	cranberry_main.run()
 
 if __name__ == "__main__":
