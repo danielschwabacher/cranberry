@@ -19,19 +19,19 @@ class URL_Creator():
 	def update_headers(self):
 		ua = UserAgent()
 		self.cranberry_fake_headers['User-Agent'] = ua.random
-		logging.debug("headers are: " + str(self.cranberry_fake_headers))
+		logging.debug("Headers are: " + str(self.cranberry_fake_headers))
 
-	def create_urls(self):
+	def create_urls(self, delay_time):
 		list_of_urls = []
 		for item in self.songs_list:
 			print("Getting url for song: ", item)
 			self.update_headers()
+			# Sleep between API requests, hopefully reduces CAPTCHA errors.
+			time.sleep(delay_time)
 			html_content = requests.get("http://www.youtube.com/results?search_query=" + item, headers=self.cranberry_fake_headers)
 			try:
 				search_results = re.findall(r'\/watch\?v=(.{11})', html_content.content.decode('utf-8'))	
 				logging.debug("Search results are: " + str(search_results))
-				# This may help reduce captcha errors.
-				time.sleep(random.random() * 3)
 				if html_content.status_code == 503:
 					print("CAPTCHA Error, cranberry cannot continue. Run with -v for more information. Cranberry will now exit.")
 					logging.debug("Status code: ", html_content.status_code)
