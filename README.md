@@ -63,13 +63,17 @@ For example, suppose you want to download all of Beethoven's first 5 symphonies.
 **Beethoven_songs.txt**, containing: 
 
 **Beethoven_songs.txt**
- \------------------------------------
+
 | Beethoven Symphony No. 1 |
+
 | Beethoven Symphony No. 2 |
+
 | Beethoven Symphony No. 3 |
+
 | Beethoven Symphony No. 4 |
+
 | Beethoven Symphony No. 5 |
- \------------------------------------
+
 
 Cranberry works best when your song file contains specific enough queries such that the first Youtube search result is what you're looking for. Again, using the [append](#append) flag can help ensure you download the expected content. 
 
@@ -78,11 +82,13 @@ Sensors
 Sensors are the backbone of cranberry. They specify parsing and search patterns. Cranberry downloads the first result returned by Youtube's search. Using the right sensor can ensure the first Youtube search result is the most relevant one to your use case. 
 
 #### Default sensor
-The default sensor simply removes numbers and colons from each search query. For example, if your song file contains timestamps along with song names, only the song names will be uploaded to the Youtube search. The following table may help illustrate. 
+The default sensor simply removes numbers and colons from each search query. For example, if your song file contains timestamps along with song names, only the song names will be uploaded to the Youtube search. The following table may help illustrate:
+
 |Actual Song File Text  | Uploaded to Youtube |
-|--|--|
-|  10:15 SONG_NAME | SONG_NAME
-|  Beethoven No. 1| Beethoven No.
+|-----------------------|---------------------|
+|  10:15 SONG_NAME      |       SONG_NAME     |
+|  Beethoven No. 1      |       Beethoven No. |
+
 
 The default sensor is not a good choice for downloading songs which contain numbers (like the symphonies), as the numbers won't be reflected in the Youtube search. 
 
