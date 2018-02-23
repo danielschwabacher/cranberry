@@ -1,58 +1,108 @@
-Cranberry
+﻿Cranberry
 ===============================
+[![PyPI version](https://badge.fury.io/py/cranberry.svg)	](https://pypi.python.org/pypi/cranberry/1.0.0)[![dls](https://img.shields.io/github/downloads/danielschwabacher/cranberry/total.svg)	](
+http://github.com/danielschwabacher/cranberry)[![release](https://img.shields.io/github/release/danielschwabacher/cranberry/all.svg)	](https://github.com/danielschwabacher/cranberry)
 
-version number: 1.0.0
-
-author: Daniel Schwabacher
+Cranberry is a flexible solution for batch downloading music. It sits atop [youtube-dl](https://github.com/rg3/youtube-dl) and accepts plaintext files specifying music to download. Cranberry is user friendly and highly extensible. The ultimate goal of this project is to provide a versatile and customizable music downloading experience through a simple and universal medium (plaintext files).
 
 Overview
 --------
-The short version: Cranberry is a command line solution to easily batch download music from youtube. It sits atop youtube-dl and allows you to upload plaintext files containing song names, which are then downloaded to a directory of your choosing.
+Cranberry parses plaintexts files for music. After it finds song names in these files, it searches youtube (or another video service) for the matching video. Cranberry then uploads the relevant URLs to youtube-dl, which downloads and converts the video to an MP3. 
 
-The longer one: Cranberry is a complete rewrite of a former project of mine known as autoSong. Like Cranberry, autoSong was a solution to batch download music, however, autoSong had a number of design shortcomings and, as such, is no longer supported in favor of Cranberry. Cranberry is MUCH more user friendly, secure, maintainable and extensible. The ultimate goal of Cranberry is to provide a versatile and customizable music downloading experience through a simple and universal medium (plaintext files).
 
 Installation
 --------------------
+Cranberry is distributed via a PyPi. The current PyPi index, along with the tar distros can be found here: https://pypi.python.org/pypi/cranberry/1.0.0 
 
-Cranberry is pip-installable
-(the tar distros are here: https://pypi.python.org/pypi/cranberry/)
-
-To install it, run:
-```pip3 install cranberry```
+The easier way to install cranberry is with pip. Simply run the folllowing:
+```pip install cranberry```
 
 
-The cranberry user guide/workflow:
+Basic Usage Guide
 -------------
+Cranberry is a command line interface (CLI) meaning that, once installed, the program can be invoked via a command line by running the command: ```cranberry```.  This will print a help menu and then exit. 
 
-###### Cranberry really only needs two things:
-
-1.) A plaintext file (.txt) which contains a list of songs that cranberry should download. The default is songsList.txt located in the user's home directory.
-
-2.) A directory which cranberry will download the songs to. The default is ~/CranberryMusic/
-
-Example:
+Cranberry Sessions
 -------
-First, we'll run cranberry with the default settings (no flags):
+ A cranberry session requires two arguments to run. 
+ 
+ 1.) A source file, denoted by ```-s``` 
+  * This is a plaintext file containing a list of songs to download. 
+  * If left unspecified, cranberry will look for songs in the file ```~/songsList.txt```
+  * The format of this song file is detailed in the section **Song Files**.
+  
+ 2.) An output directory, denoted by ```-o```
+ * This is the directory which cranberry will download the MP3s to
+ * If left unspecified, cranberry will download the songs to ```~/CranberryMusic```
 
-```cranberry```
+### Basic usage 
+The following example shows how to download music contained in the file **songs.txt** to the directory **~/music**:
+* ```cranberry -s songs.txt -o ~/music```
 
-This will cause cranberry to look for the file: **~/songsList.txt**. If it is there, cranberry will download all of the songs located in **songsList.txt** to the directory: **~/CranberryMusic/**. **Note: Cranberry will automatically create the download directory if it doesn't exist.**
+
+### More options
+
+##### Append "audio" <a id="append"></a>
+
+Sometimes, especially on Youtube, appending the text "audio" to your search queries results in more accurate matches. Cranberry has a handy flag to automatically append this to your searches, to run cranberry in append mode, use the ```-a``` flag
+* ```cranberry -a -s songs.txt -o ~/music```
+
+##### Delay requests <a id="delay"></a>
+Youtube may throttle or deny your requests if you spam the site with a lot of requests in a short period of time. Cranberry has a flag (```-r NUM_SECONDS``` ) to add a delay, in seconds, to your requests to mitigate this issue.
+* ```cranberry -r 2 -s songs.txt -o ~/music```
+* This will run cranberry with a 2 second delay between Youtube requests
+* Note that higher values may significantly increase  the time cranberry takes to finish
+
+For more rigorous pattern matching and parsing options, see the section entitled **Sensors**
+
+Song Files
+----------
+Song files are simply .txt files which may contain individual song names, artists, albums, etc. In cranberry's default mode, each line, delimited by the newline character (return), will be searched on Youtube. The first result of each search will be downloaded as a MP3 file. 
+
+For example, suppose you want to download all of Beethoven's first 5 symphonies. To do this, you'd construct a file, 
+**Beethoven_songs.txt**, containing: 
+
+**Beethoven_songs.txt**
+ \------------------------------------
+| Beethoven Symphony No. 1 |
+| Beethoven Symphony No. 2 |
+| Beethoven Symphony No. 3 |
+| Beethoven Symphony No. 4 |
+| Beethoven Symphony No. 5 |
+ \------------------------------------
+
+Cranberry works best when your song file contains specific enough queries such that the first Youtube search result is what you're looking for. Again, using the [append](#append) flag can help ensure you download the expected content. 
+
+Sensors
+---------
+Sensors are the backbone of cranberry. They specify parsing and search patterns. Cranberry downloads the first result returned by Youtube's search. Using the right sensor can ensure the first Youtube search result is the most relevant one to your use case. 
+
+#### Default sensor
+The default sensor simply removes numbers and colons from each search query. For example, if your song file contains timestamps along with song names, only the song names will be uploaded to the Youtube search. The following table may help illustrate. 
+|Actual Song File Text  | Uploaded to Youtube |
+|--|--|
+|  10:15 SONG_NAME | SONG_NAME
+|  Beethoven No. 1| Beethoven No.
+
+The default sensor is not a good choice for downloading songs which contain numbers (like the symphonies), as the numbers won't be reflected in the Youtube search. 
+
+#### Other sensors
+Currently, cranberry just has the one default sensor. I'll be adding more in the future to handle more use cases. 
+
+#### Custom sensors
+Sensors can, technically, be anything, from simply regex pattern matches to artificially intelligent systems which best pick out which items to search. Cranberry will support custom, user-defined sensors. The architecture for this system is currently a work in progress. 
 
 
-Cranberry also supports song files with different names in different locations. As an example, we'll specify different song files and directories to download from and to, respectively.
-
-```cranberry -o ~/OtherMusicFiles/ -s ~/other_song_file.txt```
-
-The first flag (-o) is followed by a directory that cranberry will download to. The second flag (-s) is followed by a plaintext file called other_song_file.txt that cranberry will parse songs from.
-
-The built-in cranberry help menu details all the possible flags cranberry accepts, to show it, simply run:
-
-```cranberry -h```
+Troubleshooting
+-------------------
+The most likely problem you'll experience with cranberry is Youtube blocking your requests for long song files. To help remedy this, specify a reasonable number of seconds between requests using the [delay](#delay)  flag. 
 
 Contributing
 ---------
-TBD
+Contributions are very welcome. Feel free to fork this repository and add some features. 
 
 A final disclaimer
 -----------
-It's no secret that cranberry could potentially be used to download copyrighted work off of youtube (you shouldn't use it for this though). By using this software, you agree that I will not be held responsible for any implications of you downloading or distributing copyrighted work through cranberry.
+There is a lot of non-copyrighted, free, and good music on Youtube. Cranberry was developed to make downloading this music less tedious. Without cranberry, the best option is often to upload individual Youtube URLs to a music downloading service (for example, http://youtubemp3.to/). This takes a long time. 
+
+You shouldn't use cranberry to download copyrighted works. And, by using this software, you agree that I will not be held responsible for any implications of you downloading or distributing copyrighted work through cranberry.

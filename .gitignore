@@ -46,3 +46,4 @@ share/
 man/
 etc/
 pip-self*
+.vscode/
