@@ -47,3 +47,5 @@ man/
 etc/
 pip-self*
 .vscode/
+include/
+.Python
