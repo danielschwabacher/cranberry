@@ -12,7 +12,7 @@ Cranberry parses plaintexts files for music. After it finds song names in these 
 
 Installation
 --------------------
-Cranberry is distributed via a PyPi. The current PyPi index, along with the tar distros can be found here: https://pypi.python.org/pypi/cranberry/1.0.0 
+Cranberry is distributed via a PyPi. The current PyPi index, along with the tar distros can be found here: https://pypi.python.org/pypi/cranberry/1.0.1
 
 The easier way to install cranberry is with pip. Simply run the folllowing:
 ```pip install cranberry```
