@@ -7,6 +7,7 @@ from cranberry import uploader
 from cranberry import sensor
 import os
 import logging
+import time
 
 class Cranberry():
 	""" Cranberry objects are responsible for starting, managing, monitoring
@@ -44,7 +45,7 @@ class Cranberry():
 			print("6.) Request Delay Time: " + str(self.request_delay_time))
 			exit(0)
 		# ~~~~~~~~~~
-		print("---WELCOME TO CRANBERRY---")
+		print("----------Cranberry Session Started at: {0}----------".format(time.ctime()))
 		filesystem_crawler = crawler.Crawler(self.dl_dir, self.songs_loc)
 		filesystem_crawler.operations_runner()
 		if (self.auto_append == True):
