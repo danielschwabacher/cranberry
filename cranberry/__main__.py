@@ -3,6 +3,7 @@ import os
 import sys
 import logging
 from cranberry import cranberry
+import pkg_resources
 
 def main(args=None):
 	"""Entry point for cranberry."""
@@ -19,8 +20,13 @@ def main(args=None):
 	parser.add_argument('-r', "--request-delay-time", type=int, default=0, help="Specify time between requests. Higher values may reduce the CAPTCHA issue error rate. Defaults to 0, no time between Youtube API request.")
 	parser.add_argument('-d', "--display-session-info", action="store_true", help="Print information about Cranberry session arguments and then exit. Does NOT run a cranberry session")
 	parser.add_argument('-x', "--sensor", default=DEFAULT_SENSOR, help="Advanced: specify a custom sensor to use during the parsing phase. Not yet implemented, option ignored.")
+	parser.add_argument('-i', "--info", action="store_true", help="Shows information about this Cranberry installing, like the version.")
+
 	args = parser.parse_args()
 	args_dict = vars(args)
+	if (args_dict['info']):
+		print("Cranberry Version: " + pkg_resources.get_distribution("cranberry").version)
+		exit(0)
 	if (args_dict['source_file'] == SONGS_LOCATION and args_dict['output_directory'] == DOWNLOAD_DIR and args_dict['sensor'] == DEFAULT_SENSOR):
 		parser.print_help()
 		exit(0)
