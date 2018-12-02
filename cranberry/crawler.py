@@ -13,7 +13,7 @@ class Crawler():
 			return 0
 		else:
 			logging.debug("The output directory does not exist, creating it...")
-			self.create_output_dir(self.output_directory)
+			self.create_output_dir()
 
 	def validate_song_file(self):
 		if (os.path.exists(self.song_loc)):
@@ -22,7 +22,7 @@ class Crawler():
 			print("Song file does not exist, create the song file before continuing.")
 			logging.debug("Song file {0} does not exist, you must create it before continuing".format(self.song_loc))
 			exit(-1)
-			
+
 	def create_output_dir(self):
 		try:
 			os.mkdir(self.output_directory)
